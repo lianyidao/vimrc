@@ -1,4 +1,4 @@
-" YCM
+""" YCM
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_complete_in_comments = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
@@ -18,7 +18,7 @@ au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 " preview: show extra info in the preview window
 set completeopt=menuone,menu,preview
 
-" Syntastic
+""" Syntastic
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -30,7 +30,7 @@ let g:syntastic_check_on_wq = 0
 
 let g:syntastic_javascript_checkers = ['eslint']
 
-"" CoC
+""" CoC
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
@@ -41,8 +41,9 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gh :CocCommand clangd.switchSourceHeader<CR>
 
-let g:coc_global_extensions = [ 'coc-conjure', 'coc-rls', 'coc-omnisharp' ]
+let g:coc_global_extensions = [ 'coc-clangd', 'coc-conjure', 'coc-rls', 'coc-omnisharp', 'coc-marketplace' ]
 
 " Rename the current word.
 nmap <leader>rn <Plug>(coc-rename)

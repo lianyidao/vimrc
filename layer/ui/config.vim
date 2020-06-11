@@ -1,47 +1,147 @@
-" Improves speed of drawing and smoothness of scrolling
-set ttyfast
+""" BASIC
+set nocompatible    " no vi-compatible mode
+set noexrc          " do not use .vimrc in current directory
+set noerrorbells    " don't make noise
 
-" Show incomplete commands as I type
-set showcmd
+set fileformats=unix,dos,mac    " support all three, in this order
+set iskeyword+=_,$,@,%,#        " none of there are word dividers
 
-" Show command completion with tab
-set wildmenu
+set hidden
+set nobackup
+set nowritebackup
 
-" Draw more judiciously
-set lazyredraw
 
-" GUI tabs
-nnoremap ,t <Esc>:tabnew<CR>
-nnoremap <C-l> :tabn<CR>
-nnoremap <C-h> :tabp<CR>
-nnoremap <silent> <C-j> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
-nnoremap <silent> <C-k> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
 
-" Work around an issue with C-h on OS X
-if has('nvim')
-  nmap <BS> :tabp<CR>
-endif
+""" UI
+set bg=dark         " use a dark backgroud
+syntax on           " syntax highlighting on
 
-" Allow a lot of tabs to be opened by -p
-set tabpagemax=50
+set ttyfast         " Improves speed of drawing and smoothness of scrolling
+set lazyredraw      " Draw more judiciously, don't redraw while running macros
 
-" Allow tab duplication
-function! s:copy_tab()
-  tabnew %:p
-endfunction!
-nnoremap ,T <Esc>:call <SID>copy_tab()<CR>
+set cursorcolumn    " highlight current column
+set cursorline      " highlight current line
+set incsearch       " highlight as you type search phrase
+set nohlsearch      " don't highlight seached phrases
+set linespace=0     " don't insert any extra space between rows
+set matchtime=5     " how many tenth of a second to blink for matched brachets
 
-" No visual bell
-set noerrorbells
+set novisualbell    " don't blink
 set visualbell t_vb=
 au GuiEnter * set visualbell t_vb=
 
+set number          " show line number
+set noshowmode      " don't show the current mode, already displayed by airline
+set list            " show tabs, to ensure we get them out of files
+set listchars=tab:>-,trail:-    " show tab and trailing white spaces
+set nostartofline   " leave cursor column where it was
+set report=0        " tell us when any is changed via :...
+set scrolloff=10    " keep 10 lines in top/buttom when moving cursor
+set sidescrolloff=10
+set shortmess=acOstT " shorten messages to avoid 'press a key' prompt
+
+set wildmenu        " turn on vim command line completion, with tab
+set showcmd         " Show incomplete commands as I type
+
+set laststatus=2
+set statusline=%F%m%r%h%w[%L][%{&enc}][%{&ff}]%y[%p%%][%04l,%04v]
+"              | | | | |  |     |        |      |  |     |    |
+"              | | | | |  |     |        |      |  |     |    + current
+"              | | | | |  |     |        |      |  |     |       column
+"              | | | | |  |     |        |      |  |     +-- current line
+"              | | | | |  |     |        |      |  +-- current % into file
+"              | | | | |  |     |        |      +-- current syntax in
+"              | | | | |  |     |        |          square brackets
+"              | | | | |  |     |        +-- current fileformat
+"              | | | | |  |     +-- current encoding
+"              | | | | |  +-- number of lines
+"              | | | | +-- preview flag in square brackets
+"              | | | +-- help flag in square brackets
+"              | | +-- readonly flag in square brackets
+"              | +-- modified flag in square brackets
+"              +-- full path to file in the buffer
+
+
+""" TEXT FORMATING/INDENT/ALIGNMENT
+set ignorecase      " case insensitive by default
+set infercase       " infer case by default
+set smartcase       " when there are caps, go case-sensitive
+set textwidth=80    " 80 column
+let &colorcolumn="81,81"
+set shiftround      " when at 3 spaces, hit > ... go to 4, not 5
+
+set autoindent
+set smartindent
+set backspace=indent,eol,start  " make backspae more flexible
+set tabstop=8       " real tabs should be 8
+set shiftwidth=8    " auto-indent amount when using cindent(>>, <<)
+set softtabstop=8   " how many spaces should a tab be,
+                    " when hitting tab or backspace
+"set expandtab       " no real tabs, insert space instead
+set cino=:0g0t0(0   " c code style, see :help cino
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+
+""" ENCODING
+set encoding=utf-8
+"set encoding=euc-cn    " use chinese encoding
+let &termencoding=&encoding
+set fileencodings=utf-8,gb2312,gbk,gb18030
+
+
+" FOLDING
+set foldmethod=syntax
+set foldenable
+set foldcolumn=0
+set foldlevelstart=20
+
+set updatetime=300     " idle mili seconds before swap is written to file
+
 " Enable mouse
-set mouse=a
-set mousemodel=popup_setpos
+"set mouse=a
+"set mousemodel=popup_setpos
+
+" GUI menus
+set guioptions-=m " Menu
+set guioptions-=T " Toolbar
+set guioptions-=r " Right scroll
+set guioptions-=R " Right scroll
+set guioptions-=l " Left scroll
+set guioptions-=L " Left scroll
+set guioptions+=c " Use console to prompt questions
+
+
+let mapleader=","
+
+" GUI tabs
+"nnoremap <leader>t <Esc>:tabnew<CR>
+"nnoremap <C-l> :tabn<CR>
+"nnoremap <C-h> :tabp<CR>
+"nnoremap <silent> <C-j> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
+"nnoremap <silent> <C-k> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
+
+
+" Work around an issue with C-h on OS X
+"if has('nvim')
+"  nmap <BS> :tabp<CR>
+"endif
+
+" Allow a lot of tabs to be opened by -p
+"set tabpagemax=50
+
+" Allow tab duplication
+"function! s:copy_tab()
+"  tabnew %:p
+"endfunction!
+"nnoremap ,T <Esc>:call <SID>copy_tab()<CR>
+
 
 " Unixy pasting
-noremap! <s-insert> <middlemouse>
+"noremap! <s-insert> <middlemouse>
 
 " Disable arrow keys
 nnoremap <up> <nop>
@@ -61,37 +161,6 @@ else
   set guifont=Menlo\ Regular:h25
 endif
 
-" GUI menus
-set guioptions-=m " Menu
-set guioptions-=T " Toolbar
-set guioptions-=r " Right scroll
-set guioptions-=R " Right scroll
-set guioptions-=l " Left scroll
-set guioptions-=L " Left scroll
-set guioptions+=c " Use console to prompt questions
-
-" Show line numbers
-set number
-" Don't show the current mode - it's already displayed by airline
-set noshowmode
-
-" Folding
-set foldmethod=syntax
-set foldenable
-set foldcolumn=0
-set foldlevelstart=20
-
-" UTF8 please
-if has('vim_starting')
-  set fileencoding=utf-8
-  set encoding=utf-8
-endif
-
-" Idle time before CursorHold is sent
-set updatetime=1000
-
-" 80 column
-let &colorcolumn="101,101"
 
 " Enter in the quickfix window doesn't focus the new buffer.
 " This is convenient for quickly looking at code and following the
@@ -101,9 +170,9 @@ au BufReadPost quickfix noremap <C-cr> <cr><c-w>p
 " Allow escaping terminal mode.
 tnoremap <C-Esc> <C-\><C-n>
 " Make terminal windows as big as possible.
-set scrollback=100000
+set termwinscroll=100000
 au BufWinEnter * if &buftype == 'terminal' | exec "resize " . &lines | endif
 
 " Open help in a new tab
-cabbrev help tab help
-cabbrev h tab h
+"cabbrev help tab help
+"cabbrev h tab h

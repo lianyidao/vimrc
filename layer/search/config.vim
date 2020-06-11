@@ -48,6 +48,10 @@ let g:ctrlp_clear_cache_on_exit = 0
 
 let g:ctrlp_extensions = ['line']
 
+nnoremap <silent> <Space>f :CtrlP<CR>
+nnoremap <silent> <Space>m :CtrlPMixed<CR>
+nnoremap <silent> <Space>r :CtrlPMRU<CR>
+
 " Fuzzy find in the current file
 nnoremap <C-t> :execute 'CtrlPLine ' . (expand('%'))<CR>
 
