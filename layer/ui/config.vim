@@ -74,10 +74,10 @@ set autoindent
 set smartindent
 set backspace=indent,eol,start  " make backspae more flexible
 set tabstop=8       " real tabs should be 8
-set shiftwidth=8    " auto-indent amount when using cindent(>>, <<)
-set softtabstop=8   " how many spaces should a tab be,
+set shiftwidth=4    " auto-indent amount when using cindent(>>, <<)
+set softtabstop=4   " how many spaces should a tab be,
                     " when hitting tab or backspace
-"set expandtab       " no real tabs, insert space instead
+set expandtab       " no real tabs, insert space instead
 set cino=:0g0t0(0   " c code style, see :help cino
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
