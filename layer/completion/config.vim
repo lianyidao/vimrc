@@ -43,7 +43,8 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> gh :CocCommand clangd.switchSourceHeader<CR>
 
-let g:coc_global_extensions = [ 'coc-clangd', 'coc-conjure', 'coc-rls', 'coc-omnisharp', 'coc-marketplace' ]
+let g:coc_global_extensions = [ 'coc-clangd', 'coc-conjure', 'coc-python',
+    \ 'coc-rls', 'coc-omnisharp', 'coc-marketplace' ]
 
 " Rename the current word.
 nmap <leader>rn <Plug>(coc-rename)

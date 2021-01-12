@@ -60,6 +60,7 @@ set statusline=%F%m%r%h%w[%L][%{&enc}][%{&ff}]%y[%p%%][%04l,%04v]
 "              | | +-- readonly flag in square brackets
 "              | +-- modified flag in square brackets
 "              +-- full path to file in the buffer
+set statusline^=%{coc#status()}
 
 
 """ TEXT FORMATING/INDENT/ALIGNMENT
@@ -73,11 +74,23 @@ set shiftround      " when at 3 spaces, hit > ... go to 4, not 5
 set autoindent
 set smartindent
 set backspace=indent,eol,start  " make backspae more flexible
+
 set tabstop=8       " real tabs should be 8
 set shiftwidth=4    " auto-indent amount when using cindent(>>, <<)
 set softtabstop=4   " how many spaces should a tab be,
                     " when hitting tab or backspace
 set expandtab       " no real tabs, insert space instead
+
+"au BufNewFile,BufRead *.h,*.hpp,*.c,*.cpp,*.cc,*.objc,*.objcpp
+"    \ set shiftwidth=4 |
+"    \ set softtabstop=4 |
+"    \ set noexpandtab
+
+" html
+au BufNewFile,BufRead *.js,*.html,*.css
+    \ set shiftwidth=2 |
+    \ set softtabstop=2
+
 set cino=:0g0t0(0   " c code style, see :help cino
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
